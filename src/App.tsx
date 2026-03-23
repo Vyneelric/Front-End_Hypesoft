@@ -1,7 +1,7 @@
 export function App() {
   return (
     <>
-      teste
+      arrumando as estruturas do github
     </>
   )
 }
