@@ -6,8 +6,10 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useProdutos } from '@/hooks/useProduto'
 
 export function Produtos() {
+  const { data: produtos, isLoading, error } = useProdutos()
   return (
     <div className="w-full h-16">
       <div className="w-full flex items-center justify-between">
@@ -65,24 +67,24 @@ export function Produtos() {
                   </TableHeader>
 
                   <TableBody>
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">R$ 38.99</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">10</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Eletrônicos</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">R$ 38.99</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">10</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Eletrônicos</TableCell>
-                    </TableRow>
-                    
+                    {isLoading ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center">Carregando...</TableCell>
+                      </TableRow>
+                    ) : error ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center text-red-500">Erro ao carregar produtos</TableCell>
+                      </TableRow>
+                    ) : produtos?.map((produto: any) => (
+                      <TableRow key={produto.id}>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.id}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.nome}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.descricao}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">R$ {produto.preco}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.quantidade_estoque}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.category?.nome}</TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </div>

@@ -3,6 +3,7 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@
 import ProductsByCategoryChart from '@/components/charts/ProductsByCategoryChart'
 import { Ellipsis, ShoppingBasket, Scroll, ChartColumn } from 'lucide-react'
 import { PackageIcon, ArrowFatDownIcon } from '@phosphor-icons/react'
+import { useValorTotalEstoque, useTotalProdutos, useProdutosEstoqueBaixo, useProdutosPorCategoria, useProdutosEstoqueBaixoLista } from '@/hooks/useProduto'
 
 const data = [
   { categoria: "Eletrônicos", Quantidade: 10 },
@@ -11,6 +12,11 @@ const data = [
 ]
 
 export function Dashboard() {
+  const { data: produtos, isLoading, error} = useProdutosEstoqueBaixoLista()
+  const { data: valorTotal, isLoading: loadingValor } = useValorTotalEstoque()
+  const { data: totalProdutos, isLoading: loadingTotal } = useTotalProdutos()
+  const { data: estoqueBaixo, isLoading: loadingEstoque } = useProdutosEstoqueBaixo()
+  const { data: dadosGrafico, isLoading: loadingGrafico } = useProdutosPorCategoria()
   return (
     <div className="w-full h-16">
       <div className="w-full flex items-center justify-between">
@@ -26,7 +32,7 @@ export function Dashboard() {
               <Ellipsis stroke="#545162" className="h-6 w-10 fill-green-500"/> 
             </CardHeader>
             <CardContent className="font-semibold text-4xl">
-              $29934,08
+              {loadingValor ? 'Carregando...' : `R$ ${valorTotal?.toFixed(2)}`}
             </CardContent>
           </Card>
           <Card className="border-none ring-0 w-3/5 h-40 bg-[#FFFFFF] pl-2">
@@ -36,17 +42,17 @@ export function Dashboard() {
               <Ellipsis stroke="#545162" className="h-6 w-10 fill-green-500"/> 
             </CardHeader>
             <CardContent className="font-semibold text-4xl">
-              28
+              {loadingTotal ? 'Carregando...' : totalProdutos}
             </CardContent>
           </Card>
           <Card className="border-none ring-0 w-3/5 h-40 bg-[#FFFFFF] pl-2">
             <CardHeader className="flex flex-row items-center gap-2">
               <ArrowFatDownIcon className="!w-9 !h-9 bg-[#F9F9F9] rounded-xl p-1" fill="#4E36DF"></ArrowFatDownIcon>
-              <CardTitle className="font-semibold text-lg mr-32">Produtos estoque baixo</CardTitle>
+              <CardTitle className="font-semibold text-lg mr-20">Produtos em estoque (≤ 9)</CardTitle>
               <Ellipsis stroke="#545162" className="h-6 w-10 fill-green-500"/> 
             </CardHeader>
             <CardContent className="font-semibold text-4xl">
-              6
+              {loadingEstoque ? 'Carregando...' : estoqueBaixo}
             </CardContent>
           </Card>
         </div>
@@ -70,20 +76,22 @@ export function Dashboard() {
                   </TableHeader>
 
                   <TableBody>
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">R$ 38.99</TableCell>
-                    </TableRow>
-                    
+                    {isLoading ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center">Carregando...</TableCell>
+                      </TableRow>
+                    ) : error ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center text-red-500">Erro ao carregar produtos</TableCell>
+                      </TableRow>
+                    ) : produtos?.map((produto: any) => (
+                      <TableRow key={produto.id}>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.id}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.nome}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">{produto.descricao}</TableCell>
+                        <TableCell className="break-all whitespace-normal text-sm text-center">R$ {produto.preco}</TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </div>
@@ -96,7 +104,7 @@ export function Dashboard() {
               <CardTitle className="font-semibold text-lg mr-16">Produtos e suas categorias</CardTitle>
             </CardHeader>
             <CardContent className="font-semibold text-4xl overflow-x-auto">
-              <ProductsByCategoryChart data={data} />
+              {loadingGrafico ? 'Carregando...' : <ProductsByCategoryChart data={dadosGrafico || data} />}
             </CardContent>
           </Card>
         </div>

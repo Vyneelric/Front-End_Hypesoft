@@ -18,9 +18,9 @@ export default function ProductsByCategoryChart({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={440}>
       <BarChart data={data}>
-        <XAxis tick={{ fontSize: 22 }} dataKey="categoria"/>
+        <XAxis tick={{ fontSize: 16 }} dataKey="categoria"/>
         <YAxis domain={[0, 30]} tick={{ fontSize: 20 }} tickCount={7}/> 
-        <Tooltip contentStyle={{ fontSize: "24px" }}  cursor={false}  />
+        <Tooltip contentStyle={{ fontSize: "20px" }}  cursor={false}  />
 
         <Bar
             dataKey="Quantidade"
