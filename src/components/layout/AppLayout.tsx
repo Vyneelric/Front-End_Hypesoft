@@ -33,10 +33,6 @@ export function AppLayout() {
     const value = e.target.value
     setBusca(value)
     setShowDropdown(value.length > 0)
-    console.log('Busca:', value)
-    console.log('Produtos:', produtos)
-    console.log('Filtrados:', produtosFiltrados)
-    console.log('Show dropdown:', value.length > 0)
   }
 
   const handleSelectProduto = (produto: any) => {
