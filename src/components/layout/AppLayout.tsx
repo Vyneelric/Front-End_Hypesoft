@@ -1,8 +1,8 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Search, SunMedium, Bell, Ellipsis, Tag } from 'lucide-react'
-import { HouseIcon, CubeIcon, GearSixIcon } from '@phosphor-icons/react'
+import { Search, SunMedium, Bell, Ellipsis, Tag, ChartColumnBig } from 'lucide-react'
+import { CubeIcon, GearSixIcon } from '@phosphor-icons/react'
 import knight from '@/assets/images/knight.webp'
 
 export function AppLayout() {
@@ -56,9 +56,8 @@ export function AppLayout() {
               <p className="flex w-20 mb-4">G E R A L</p>
               <Link to="/">
                 <Button className={`group flex w-5/6 h-14 ${location.pathname === '/' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4`}>
-                  <HouseIcon
-                    weight="fill"
-                    className="!w-6 !h-6 fill-[#4F4D5B] group-hover:fill-[#4E36DF]"
+                  <ChartColumnBig
+                    className="!w-6 !h-6 stroke-[#4F4D5B] group-hover:stroke-[#4E36DF]"
                   />
                   <span className="text-[#4F4D5B] group-hover:text-[#4E36DF] transition-colors">
                     Dashboard
@@ -68,8 +67,8 @@ export function AppLayout() {
 
                 <p className="flex w-auto mb-4 mt-4">F U N C I O N A L I D A D E S</p>
 
-                <Link to="/products">
-                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/products' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
+                <Link to="/produtos">
+                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/produtos' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
                   <CubeIcon
                     weight="fill"
                     className="!w-6 !h-6 fill-[#4F4D5B] group-hover:fill-[#4E36DF]"
@@ -80,8 +79,8 @@ export function AppLayout() {
                 </Button>
                 </Link>
 
-                <Link to="/categories">
-                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/categories' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
+                <Link to="/categorias">
+                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/categorias' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
                   <Tag
                     className="!w-6 !h-6 stroke-[#4F4D5B] group-hover:stroke-[#4E36DF]"
                   />
@@ -93,8 +92,8 @@ export function AppLayout() {
 
                 <p className="flex w-auto mb-4 mt-4">C O N F I G U R A Ç Ã O</p>
 
-                <Link to="/settings">
-                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/settings' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
+                <Link to="/configuracoes">
+                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/configuracoes' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
                   <GearSixIcon
                     weight="fill"
                     className="!w-6 !h-6 fill-[#4F4D5B] group-hover:fill-[#4E36DF]"

@@ -1,4 +1,4 @@
-export function Settings() {
+export function Configuracoes() {
   return (
     <div className="w-full h-16">
       <div className="w-full flex items-center justify-between">

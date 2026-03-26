@@ -58,101 +58,32 @@ export function Dashboard() {
               <CardTitle className="font-semibold text-lg mr-16">Lista de produtos com estoque baixo</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="w-full h-80 overflow-y-auto overflow-x-hidden">
+              <div className="w-full h-[442px] overflow-y-auto overflow-x-hidden">
                 <Table className="w-full table-fixed">
-                  <TableHeader>
+                  <TableHeader className='justify-center'>
                     <TableRow>
-                      <TableHead className="w-[30%]">ID</TableHead>
-                      <TableHead className="w-[20%]">Nome</TableHead>
-                      <TableHead className="w-[35%]">Descrição</TableHead>
-                      <TableHead className="w-[15%]">Preço</TableHead>
+                      <TableHead className="w-[30%] text-gray-600 text-sm text-center">ID</TableHead>
+                      <TableHead className="w-[20%] text-gray-600 text-sm text-center">Nome</TableHead>
+                      <TableHead className="w-[35%] text-gray-600 text-sm text-center">Descrição</TableHead>
+                      <TableHead className="w-[15%] text-gray-600 text-sm text-center">Preço</TableHead>
                     </TableRow>
                   </TableHeader>
 
                   <TableBody>
                     <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">Produto 01</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">Mouse gamer muito com sensor Paw3311</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">R$ 38.99</TableCell>
                     </TableRow>
 
                     <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">Produto 01</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">Mouse gamer muito com sensor Paw3311</TableCell>
+                      <TableCell className="break-all whitespace-normal text-sm text-center">R$ 38.99</TableCell>
                     </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell className="break-all whitespace-normal">sdmasdhj21dsa-2njsdadn2u-231jnsadd</TableCell>
-                      <TableCell className="break-all whitespace-normal">Produto 01</TableCell>
-                      <TableCell className="break-all whitespace-normal">Mouse gamer muito com sensor Paw3311</TableCell>
-                      <TableCell className="break-all whitespace-normal">R$ 38.99</TableCell>
-                    </TableRow>
+                    
                   </TableBody>
                 </Table>
               </div>

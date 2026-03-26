@@ -11,17 +11,19 @@ import { AppLayout } from './components/layout/AppLayout'
 import { Dashboard } from './pages/Dashboard'
 import { Produtos } from './pages/Produtos'
 import { Categorias } from './pages/Categorias'
-import { Settings } from './pages/Settings'
+import { Configuracoes } from './pages/Configuracoes'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'produtos', element: <Produtos /> },
       { path: 'categorias', element: <Categorias /> },
-      { path: 'settings', element: <Settings /> },
+      { path: 'configuracoes', element: <Configuracoes /> },
     ],
   },
 ])
@@ -29,5 +31,5 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 )
