@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useCriarProduto, useCategorias } from '@/hooks/useProduto'
+import { useCategorias } from '@/hooks/useProduto'
 
 const produtoSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
@@ -16,61 +16,65 @@ const produtoSchema = z.object({
 
 type ProdutoFormData = z.infer<typeof produtoSchema>
 
-interface ProdutoFormProps {
-  onSuccess?: () => void
+interface ProdutoUpdateFormProps {
+  produto: {
+    id: string
+    nome: string
+    descricao: string
+    preco: number
+    quantidade_estoque: number
+    categoria_id: string
+  }
+  onSubmit: (data: any) => void
+  onCancel: () => void
 }
 
-export function ProdutoForm({ onSuccess }: ProdutoFormProps) {
-  const { mutate: criarProduto, isPending } = useCriarProduto()
+export function ProdutoUpdateForm({ produto, onSubmit, onCancel }: ProdutoUpdateFormProps) {
   const { data: categorias = [] } = useCategorias()
-
-  const { register, handleSubmit, formState: { errors }, setValue, watch, reset } = useForm<ProdutoFormData>({
+  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<ProdutoFormData>({
     resolver: zodResolver(produtoSchema),
     defaultValues: {
-      nome: '',
-      descricao: '',
-      categoria_id: ''
+      nome: produto.nome,
+      descricao: produto.descricao,
+      preco: produto.preco,
+      quantidade_estoque: produto.quantidade_estoque,
+      categoria_id: produto.categoria_id
     }
   })
 
   const categoriaId = watch('categoria_id')
 
   const onSubmitForm = (data: ProdutoFormData) => {
-    criarProduto(data, {
-      onSuccess: () => {
-        reset()
-        onSuccess?.()
-      }
-    })
+    onSubmit({ id: produto.id, ...data })
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className="bg-white space-y-4">
       <div>
         <label className="text-sm font-medium">Nome do Produto</label>
-        <Input
-          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg"
+        <Input 
+          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg" 
           placeholder="Ex: Mouse Gamer"
           {...register('nome')}
         />
         {errors.nome && <p className="text-red-500 text-xs mt-1">{errors.nome.message}</p>}
       </div>
-
+      
       <div>
         <label className="text-sm font-medium">Descrição</label>
-        <Input
-          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg"
+        <Input 
+          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg" 
           placeholder="Descrição do produto"
           {...register('descricao')}
         />
         {errors.descricao && <p className="text-red-500 text-xs mt-1">{errors.descricao.message}</p>}
       </div>
-
+      
       <div>
         <label className="text-sm font-medium">Preço</label>
-        <Input
-          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg"
-          type="number"
+        <Input 
+          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg" 
+          type="number" 
           step="0.01"
           placeholder="0.00"
           {...register('preco')}
@@ -80,9 +84,9 @@ export function ProdutoForm({ onSuccess }: ProdutoFormProps) {
 
       <div>
         <label className="text-sm font-medium">Quantidade em estoque</label>
-        <Input
-          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg"
-          type="number"
+        <Input 
+          className="mt-2 placeholder:text-sm placeholder:text-gray-600 rounded-lg" 
+          type="number" 
           placeholder="0"
           {...register('quantidade_estoque')}
         />
@@ -103,14 +107,20 @@ export function ProdutoForm({ onSuccess }: ProdutoFormProps) {
         </Select>
         {errors.categoria_id && <p className="text-red-500 text-xs mt-1">{errors.categoria_id.message}</p>}
       </div>
-
-      <div className="flex justify-center">
-        <Button
-          type="submit"
-          disabled={isPending}
-          className="w-38 h-10 rounded-xl bg-[#FFFFFF] text-black items-center gap-2 p-3 border border-gray-300"
+      
+      <div className="flex justify-center gap-3">
+        <Button 
+          type="button" 
+          onClick={onCancel}
+          className="w-38 h-10 rounded-xl bg-gray-200 text-black hover:bg-gray-300"
         >
-          {isPending ? 'Enviando...' : 'Enviar Produto'}
+          Cancelar
+        </Button>
+        <Button 
+          type="submit" 
+          className="w-38 h-10 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+        >
+          Atualizar
         </Button>
       </div>
     </form>

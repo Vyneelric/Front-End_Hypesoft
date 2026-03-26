@@ -1,6 +1,16 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/services/api'
 
+export function useCategorias() {
+  return useQuery({
+    queryKey: ['categorias'],
+    queryFn: async () => {
+      const { data } = await api.get('/categories')
+      return data.data || []
+    }
+  })
+}
+
 export function useProdutos() {
   return useQuery({
     queryKey: ['data'],
@@ -20,7 +30,35 @@ export function useCriarProduto() {
       return data
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['produtos'] })
+      queryClient.invalidateQueries({ queryKey: ['data'] })
+    }
+  })
+}
+
+export function useAtualizarProduto() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (produto: any) => {
+      console.log('PUT body enviado:', produto)
+      const { data } = await api.put(`/products/${produto.id}`, produto)
+      return data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['data'] })
+    }
+  })
+}
+
+export function useDeletarProduto() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await api.delete(`/products/${id}`)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['data'] })
     }
   })
 }
@@ -79,16 +117,11 @@ export function useProdutosPorCategoria() {
   return useQuery({
     queryKey: ['produtosPorCategoria'],
     queryFn: async () => {
-      const categorias = [
-        { id: 'e2a4108b-649c-4815-b186-f80b0c0c7a1d', nome: 'Eletrônicos' },
-        { id: 'e287dc5f-5746-44ed-bf0a-f8bcbb6dcc14', nome: 'Roupas' },
-        { id: 'dd910769-d0c8-4c20-9fab-a60905af5190', nome: 'Brinquedos' },
-        { id: '4c486013-9b9e-4021-adc1-25aed17adfc7', nome: 'Ferramentas' },
-        { id: '9b1c6aeb-6bae-463e-a677-324cc9cdae83', nome: 'Jardim e Externo' }
-      ]
+      const { data: categoriasData } = await api.get('/categories')
+      const categorias = categoriasData.data || []
 
       const resultados = await Promise.all(
-        categorias.map(async (categoria) => {
+        categorias.map(async (categoria: any) => {
           const { data } = await api.get(`/products/categories/${categoria.id}`)
           return {
             categoria: categoria.nome,
@@ -96,7 +129,7 @@ export function useProdutosPorCategoria() {
           }
         })
       )
-      
+
       return resultados
     }
   })
