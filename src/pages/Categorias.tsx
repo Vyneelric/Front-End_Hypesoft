@@ -36,17 +36,17 @@ export function Categorias() {
   }
 
   return (
-    <div className="w-full h-16">
-      <div className="w-full flex items-center justify-between">
-        <p className="text-2xl font-medium ml-6">Categorias</p>
+    <div className="w-full min-h-screen pb-6">
+      <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-4 sm:px-6 py-4">
+        <p className="text-xl sm:text-2xl font-medium">Categorias</p>
         <Dialog open={criarDialogOpen} onOpenChange={setCriarDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="w-38 h-10 rounded-3xl bg-[#FFFFFF] text-black mr-12 flex items-center gap-2 p-3 border-1 border border-gray-300">
+            <Button className="w-full sm:w-auto h-10 rounded-3xl bg-[#FFFFFF] text-black flex items-center justify-center gap-2 px-4 border border-gray-300">
               <Plus />
               Criar categoria
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-white sm:max-w-xl" aria-describedby={undefined}>
+          <DialogContent className="bg-white w-[95vw] sm:max-w-xl max-h-[90vh] overflow-y-auto" aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle className="font-bold mb-2 text-center">Nova Categoria</DialogTitle>
             </DialogHeader>
@@ -55,27 +55,27 @@ export function Categorias() {
         </Dialog>
       </div>
 
-      <div className="w-full h-auto flex-column bg-[#FAFAFC] p-8 mt-5">
+      <div className="w-full h-auto bg-[#FAFAFC] p-4 sm:p-8">
         <Card className="border-none ring-0 w-full h-full bg-[#FFFFFF]">
-          <p className="flex mt-2 ml-10 font-bold text-xl">Filtros</p>
-          <CardHeader className="flex flex-row items-center gap-2">
-            <CardTitle className="w-full items-center font-semibold text-lg mr-16 flex gap-4 p-4">
+          <p className="flex mt-2 ml-4 sm:ml-10 font-bold text-lg sm:text-xl">Filtros</p>
+          <CardHeader className="flex flex-row items-center gap-2 px-4">
+            <CardTitle className="w-full items-center font-semibold text-base sm:text-lg flex gap-4 p-2 sm:p-4">
               <Input
-                className="w-56 placeholder:text-sm placeholder:text-gray-600 rounded-lg h-10"
+                className="w-full sm:w-56 placeholder:text-sm placeholder:text-gray-600 rounded-lg h-10"
                 placeholder="Busca por nome..."
                 value={filtroNome}
                 onChange={(e) => setFiltroNome(e.target.value)}
               />
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="w-full h-[442px] overflow-y-auto overflow-x-hidden">
-              <Table className="w-full table-fixed">
+          <CardContent className="px-2 sm:px-6">
+            <div className="w-full h-[442px] overflow-y-auto overflow-x-auto">
+              <Table className="w-full min-w-[600px]">
                 <TableHeader className='justify-center'>
                   <TableRow>
-                    <TableHead className="w-[30%] text-gray-600 text-sm text-center">ID</TableHead>
-                    <TableHead className="w-[20%] text-gray-600 text-sm text-center">Nome</TableHead>
-                    <TableHead className="w-[50%] text-gray-600 text-sm text-center">Descrição</TableHead>
+                    <TableHead className="w-[30%] text-gray-600 text-xs sm:text-sm text-center">ID</TableHead>
+                    <TableHead className="w-[20%] text-gray-600 text-xs sm:text-sm text-center">Nome</TableHead>
+                    <TableHead className="w-[50%] text-gray-600 text-xs sm:text-sm text-center">Descrição</TableHead>
                   </TableRow>
                 </TableHeader>
 
@@ -97,9 +97,9 @@ export function Categorias() {
                         setDialogOpen(true)
                       }}
                     >
-                      <TableCell className="break-all whitespace-normal text-sm text-center">{categoria.id}</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">{categoria.nome}</TableCell>
-                      <TableCell className="break-all whitespace-normal text-sm text-center">{categoria.descricao}</TableCell>
+                      <TableCell className="break-all whitespace-normal text-xs sm:text-sm text-center">{categoria.id}</TableCell>
+                      <TableCell className="break-all whitespace-normal text-xs sm:text-sm text-center">{categoria.nome}</TableCell>
+                      <TableCell className="break-all whitespace-normal text-xs sm:text-sm text-center">{categoria.descricao}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
