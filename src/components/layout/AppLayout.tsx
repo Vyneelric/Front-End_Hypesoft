@@ -1,11 +1,13 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Search, SunMedium, Bell, Ellipsis, Tag, ChartColumnBig } from 'lucide-react'
+import { Search, SunMedium, Bell, Tag, ChartColumnBig } from 'lucide-react'
 import { CubeIcon } from '@phosphor-icons/react'
 import knight from '@/assets/images/knight.webp'
 import { useState, useEffect, useRef } from 'react'
 import { useProdutos } from '@/hooks/useProduto'
+import { useAuth } from '@/context/AuthContext'
+import { LogOut } from 'lucide-react'
 
 export function AppLayout() {
   const location = useLocation()
@@ -13,6 +15,7 @@ export function AppLayout() {
   const [busca, setBusca] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const { data: produtos } = useProdutos()
+  const { username, roles, logout } = useAuth()
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const produtosFiltrados = produtos?.filter((produto: any) => 
@@ -94,10 +97,14 @@ export function AppLayout() {
               />
             </div>
               <div className="h-auto flex-column items-center mr-2">
-                <p className="font-semibold">Vinícius José</p>
-                <p className="font-normal text-[12px] text-gray-400 text-left font-medium">Shop Admin</p>
+                <p className="font-semibold">{username}</p>
+                <p className="font-normal text-[12px] text-gray-400 text-left font-medium">
+                  {roles.includes('admin') ? 'Admin' : 'User'}
+                </p>
               </div>
-                <Ellipsis stroke="#545162" className="h-6 w-10 fill-green-500"/> 
+              <button onClick={logout} title="Logout" className="ml-1 p-1 rounded-lg hover:bg-gray-100 transition-colors">
+                <LogOut className="w-5 h-5 stroke-[#545162]" />
+              </button> 
           </div>
         </div>
       </header>
