@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useProdutos, useAtualizarProduto, useDeletarProduto } from '@/hooks/useProduto'
 import { useCategorias } from '@/hooks/useCategoria'
-import { useSearchParams } from 'react-router-dom'
 import { ProdutoActionsDialog } from '@/components/ProdutoActionsDialog'
 import { ProdutoUpdateForm } from '@/components/forms/ProdutoUpdateForm'
 import { useState } from 'react'
@@ -17,8 +16,6 @@ import { toast } from 'sonner'
 export function Produtos() {
   const { data: produtos, isLoading, error } = useProdutos()
   const { data: categorias = [] } = useCategorias()
-  const [searchParams] = useSearchParams()
-  const busca = searchParams.get('busca') || ''
   const [selectedProduto, setSelectedProduto] = useState<any>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false)

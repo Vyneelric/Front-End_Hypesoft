@@ -9,12 +9,18 @@ import { useCategorias } from '@/hooks/useCategoria'
 const produtoSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
   descricao: z.string().min(1, 'Descrição é obrigatória').max(500, 'Descrição deve ter no máximo 500 caracteres'),
-  preco: z.coerce.number({ error: 'Preço inválido' }).gt(0, 'Preço deve ser maior que 0'),
-  quantidade_estoque: z.coerce.number({ error: 'Quantidade inválida' }).gte(0, 'Quantidade deve ser maior ou igual a 0'),
+  preco: z.preprocess((v) => Number(v), z.number().gt(0, 'Preço deve ser maior que 0')),
+  quantidade_estoque: z.preprocess((v) => Number(v), z.number().gte(0, 'Quantidade deve ser maior ou igual a 0')),
   categoria_id: z.string().min(1, 'Categoria é obrigatória')
 })
 
-type ProdutoFormData = z.infer<typeof produtoSchema>
+type ProdutoFormData = {
+  nome: string
+  descricao: string
+  preco: number
+  quantidade_estoque: number
+  categoria_id: string
+}
 
 interface ProdutoUpdateFormProps {
   produto: {
@@ -32,7 +38,7 @@ interface ProdutoUpdateFormProps {
 export function ProdutoUpdateForm({ produto, onSubmit, onCancel }: ProdutoUpdateFormProps) {
   const { data: categorias = [] } = useCategorias()
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<ProdutoFormData>({
-    resolver: zodResolver(produtoSchema),
+    resolver: zodResolver(produtoSchema) as any,
     mode: 'onChange',
     defaultValues: {
       nome: produto.nome,
