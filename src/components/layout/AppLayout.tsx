@@ -139,20 +139,6 @@ export function AppLayout() {
                   </span>
                 </Button>
                 </Link>
-
-                <p className="flex w-auto mb-4 mt-4">C O N F I G U R A Ç Ã O</p>
-
-                <Link to="/configuracoes">
-                <Button className={`group flex w-5/6 h-14 ${location.pathname === '/configuracoes' ? 'bg-[#F9F9F9]' : 'bg-white'} hover:bg-[#F9F9F9] transition-colors duration-300 rounded-2xl justify-start items-center gap-3 px-4 mt-4`}>
-                  <GearSixIcon
-                    weight="fill"
-                    className="!w-6 !h-6 fill-[#4F4D5B] group-hover:fill-[#4E36DF]"
-                  />
-                  <span className="text-[#4F4D5B] group-hover:text-[#4E36DF] transition-colors">
-                    Configurações
-                  </span>
-                </Button>
-                </Link>
           </div>
 
           <div className="w-full">

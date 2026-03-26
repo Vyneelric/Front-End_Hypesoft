@@ -1,16 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/services/api'
 
-export function useCategorias() {
-  return useQuery({
-    queryKey: ['categorias'],
-    queryFn: async () => {
-      const { data } = await api.get('/categories')
-      return data.data || []
-    }
-  })
-}
-
 export function useProdutos() {
   return useQuery({
     queryKey: ['data'],

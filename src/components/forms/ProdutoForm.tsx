@@ -4,7 +4,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useCriarProduto, useCategorias } from '@/hooks/useProduto'
+import { useCriarProduto } from '@/hooks/useProduto'
+import { useCategorias } from '@/hooks/useCategoria'
+import { toast } from 'sonner'
 
 const produtoSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
@@ -26,6 +28,7 @@ export function ProdutoForm({ onSuccess }: ProdutoFormProps) {
 
   const { register, handleSubmit, formState: { errors }, setValue, watch, reset } = useForm<ProdutoFormData>({
     resolver: zodResolver(produtoSchema),
+    mode: 'onChange',
     defaultValues: {
       nome: '',
       descricao: '',
@@ -39,7 +42,11 @@ export function ProdutoForm({ onSuccess }: ProdutoFormProps) {
     criarProduto(data, {
       onSuccess: () => {
         reset()
+        toast.success('Produto criado com sucesso!')
         onSuccess?.()
+      },
+      onError: () => {
+        toast.error('Erro ao criar produto')
       }
     })
   }

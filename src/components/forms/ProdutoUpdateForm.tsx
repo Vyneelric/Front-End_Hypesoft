@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useCategorias } from '@/hooks/useProduto'
+import { useCategorias } from '@/hooks/useCategoria'
 
 const produtoSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
@@ -33,6 +33,7 @@ export function ProdutoUpdateForm({ produto, onSubmit, onCancel }: ProdutoUpdate
   const { data: categorias = [] } = useCategorias()
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<ProdutoFormData>({
     resolver: zodResolver(produtoSchema),
+    mode: 'onChange',
     defaultValues: {
       nome: produto.nome,
       descricao: produto.descricao,
