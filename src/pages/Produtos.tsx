@@ -7,9 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useProdutos } from '@/hooks/useProduto'
+import { useSearchParams } from 'react-router-dom'
 
 export function Produtos() {
   const { data: produtos, isLoading, error } = useProdutos()
+  const [searchParams] = useSearchParams()
+  const busca = searchParams.get('busca') || ''
+
+  const produtosFiltrados = produtos?.filter((produto: any) => 
+    produto.nome.toLowerCase().includes(busca.toLowerCase())
+  ) || []
   return (
     <div className="w-full h-16">
       <div className="w-full flex items-center justify-between">
@@ -75,7 +82,7 @@ export function Produtos() {
                       <TableRow>
                         <TableCell colSpan={6} className="text-center text-red-500">Erro ao carregar produtos</TableCell>
                       </TableRow>
-                    ) : produtos?.map((produto: any) => (
+                    ) : produtosFiltrados?.map((produto: any) => (
                       <TableRow key={produto.id}>
                         <TableCell className="break-all whitespace-normal text-sm text-center">{produto.id}</TableCell>
                         <TableCell className="break-all whitespace-normal text-sm text-center">{produto.nome}</TableCell>

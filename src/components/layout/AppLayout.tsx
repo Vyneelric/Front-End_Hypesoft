@@ -1,12 +1,49 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Search, SunMedium, Bell, Ellipsis, Tag, ChartColumnBig } from 'lucide-react'
 import { CubeIcon, GearSixIcon } from '@phosphor-icons/react'
 import knight from '@/assets/images/knight.webp'
+import { useState, useEffect, useRef } from 'react'
+import { useProdutos } from '@/hooks/useProduto'
 
 export function AppLayout() {
   const location = useLocation()
+  const navigate = useNavigate()
+  const [busca, setBusca] = useState('')
+  const [showDropdown, setShowDropdown] = useState(false)
+  const { data: produtos } = useProdutos()
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const produtosFiltrados = produtos?.filter((produto: any) => 
+    produto.nome.toLowerCase().includes(busca.toLowerCase())
+  ).slice(0, 5) || []
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setBusca(value)
+    setShowDropdown(value.length > 0)
+    console.log('Busca:', value)
+    console.log('Produtos:', produtos)
+    console.log('Filtrados:', produtosFiltrados)
+    console.log('Show dropdown:', value.length > 0)
+  }
+
+  const handleSelectProduto = (produto: any) => {
+    setBusca(produto.nome)
+    setShowDropdown(false)
+    navigate('/produtos')
+  }
   
   return (
     <>
@@ -19,12 +56,29 @@ export function AppLayout() {
           </p>
         </div>
 
-        <div className="relative w-auto">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 w-5 h-5"></Search> 
+        <div className="relative w-auto" ref={dropdownRef}>
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 w-5 h-5 z-10"></Search> 
           <Input 
             className="pl-10 w-96 h-11 mr-[620px] placeholder:text-sm placeholder:text-gray-600 border-none bg-[#F9F9F9] rounded-2xl" 
             placeholder="Search"
+            value={busca}
+            onChange={handleSearch}
+            onFocus={() => busca.length > 0 && setShowDropdown(true)}
           />
+          {showDropdown && produtosFiltrados.length > 0 && (
+            <div className="absolute top-full mt-2 w-96 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-80 overflow-y-auto">
+              {produtosFiltrados.map((produto: any) => (
+                <div
+                  key={produto.id}
+                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"
+                  onClick={() => handleSelectProduto(produto)}
+                >
+                  <p className="font-medium text-sm">{produto.nome}</p>
+                  <p className="text-xs text-gray-500">R$ {produto.preco}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="h-12 flex gap-3">
           <div className="flex gap-6 items-center">
